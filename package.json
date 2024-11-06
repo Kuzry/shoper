@@ -1,0 +1,23 @@
+{
+  "name": "shoper",
+  "private": true,
+  "scripts": {
+    "build": "",
+    "dev:website": "npm run dev -w @zrzutkowo/website",
+    "lint": "npm run lint:template-default && npm run lint:website",
+    "lint:website": "npm run lint -w @zrzutkowo/website",
+    "type-check": "npm run type-check:template-default && npm run type-check:website",
+    "type-check:website": "npm run type-check -w @zrzutkowo/website",
+    "prettier-check": "prettier --check .",
+    "husky-prepare": "husky"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^9.1.6",
+    "prettier": "^3.3.3",
+    "prettier-plugin-tailwindcss": "^0.6.8"
+  }
+}
