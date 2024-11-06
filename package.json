@@ -3,11 +3,11 @@
   "private": true,
   "scripts": {
     "build": "",
-    "dev:website": "npm run dev -w @zrzutkowo/website",
-    "lint": "npm run lint:template-default && npm run lint:website",
-    "lint:website": "npm run lint -w @zrzutkowo/website",
-    "type-check": "npm run type-check:template-default && npm run type-check:website",
-    "type-check:website": "npm run type-check -w @zrzutkowo/website",
+    "dev:website": "npm run dev -w @shoper/website",
+    "lint": "npm run lint:website",
+    "lint:website": "npm run lint -w @shoper/website",
+    "type-check": "npm run type-check:website",
+    "type-check:website": "npm run type-check -w @shoper/website",
     "prettier-check": "prettier --check .",
     "husky-prepare": "husky"
   },
