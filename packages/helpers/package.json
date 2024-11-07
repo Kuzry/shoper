@@ -1,0 +1,31 @@
+{
+  "name": "@shoper/helpers",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint ./src",
+    "type-check": "tsc",
+    "prettiercheck": "prettier --check ./src"
+  },
+  "exports": {
+    "./upstash/server": {
+      "types": "./dist/upstash/server.d.ts",
+      "default": "./dist/upstash/server.js"
+    }
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.14.0",
+    "@types/eslint__js": "^8.42.3",
+    "eslint": "^9.14.0",
+    "rollup": "^4.24.4",
+    "rollup-plugin-typescript2": "^0.36.0",
+    "typescript": "^5.6.3",
+    "typescript-eslint": "^8.13.0"
+  },
+  "dependencies": {
+    "@upstash/qstash": "^2.7.16",
+    "server-only": "^0.0.1",
+    "zod": "^3.23.8"
+  }
+}
