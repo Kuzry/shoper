@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for website-cool-bush-9187 on 2024-11-06T12:23:34+01:00
+# fly.toml app configuration file generated for api-divine-log-7980 on 2024-11-11T21:49:15+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'website-cool-bush-9187'
+app = 'api-divine-log-7980'
 primary_region = 'waw'
 
 [build]

@@ -4,9 +4,9 @@
 ARG NODE_VERSION=20.17.0
 FROM node:${NODE_VERSION}-slim as base
 
-LABEL fly_launch_runtime="Next.js"
+LABEL fly_launch_runtime="Node.js"
 
-# Next.js app lives here
+# Node.js app lives here
 WORKDIR /app
 
 # Set production environment
@@ -22,16 +22,14 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package.json ./
-RUN npm install --include=dev
+COPY packages/helpers/package.json ./packages/helpers/
+COPY apps/api/package.json ./apps/api/
+RUN npm install
 
 # Copy application code
 COPY . .
 
-# Build application
-RUN npm run build
-
-# Remove development dependencies
-RUN npm prune --omit=dev
+RUN npm run build:api
 
 
 # Final stage for app image
@@ -42,4 +40,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "npm", "run", "start" ]
+CMD [ "npm", "run", "start:api" ]

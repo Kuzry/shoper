@@ -2,16 +2,25 @@
   "name": "shoper",
   "private": true,
   "scripts": {
-    "build": "",
-    "dev:website": "npm run dev -w @shoper/website",
+    "start:api": "npm run start -w @shoper/api",
+    "start:website": "npm run start -w @shoper/website",
+    "build": "npm run build:helpers && npm run build:api && npm run build:website",
+    "build:helpers": "npm run build -w @shoper/helpers",
+    "build:api": "npm run build -w @shoper/api",
+    "build:website": "npm run build -w @shoper/website",
     "dev:helpers": "npm run dev -w @shoper/helpers",
-    "deploy:website": "fly deploy ./apps/website",
-    "lint": "npm run lint:website && npm run lint:helpers",
-    "lint:website": "npm run lint -w @shoper/website",
+    "dev:api": "npm run dev -w @shoper/api",
+    "dev:website": "npm run dev -w @shoper/website",
+    "deploy:api": "fly deploy --config apps/api/fly.toml --dockerfile apps/api/Dockerfile",
+    "deploy:website": "fly deploy --config apps/website/fly.toml --dockerfile apps/website/Dockerfile",
+    "lint": "npm run lint:helpers && npm run lint:api",
     "lint:helpers": "npm run lint -w @shoper/helpers",
-    "type-check": "npm run type-check:website && npm run type-check:helpers",
-    "type-check:website": "npm run type-check -w @shoper/website",
+    "lint:api": "npm run lint -w @shoper/api",
+    "lint:website": "npm run lint -w @shoper/website",
+    "type-check": "npm run type-check:helpers && npm run type-check:api",
     "type-check:helpers": "npm run type-check -w @shoper/helpers",
+    "type-check:api": "npm run type-check -w @shoper/api",
+    "type-check:website": "npm run type-check -w @shoper/website",
     "prettier-check": "prettier --check .",
     "husky-prepare": "husky"
   },
@@ -23,5 +32,8 @@
     "husky": "^9.1.6",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8"
+  },
+  "engines": {
+    "node": ">=18.11"
   }
 }

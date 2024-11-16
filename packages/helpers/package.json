@@ -5,8 +5,7 @@
     "build": "rollup -c",
     "dev": "rollup -c -w",
     "lint": "eslint ./src",
-    "type-check": "tsc",
-    "prettiercheck": "prettier --check ./src"
+    "type-check": "tsc --noEmit"
   },
   "exports": {
     "./upstash/server": {
@@ -19,13 +18,14 @@
     "@types/eslint__js": "^8.42.3",
     "eslint": "^9.14.0",
     "rollup": "^4.24.4",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-preserve-directives": "^0.4.0",
     "rollup-plugin-typescript2": "^0.36.0",
     "typescript": "^5.6.3",
     "typescript-eslint": "^8.13.0"
   },
   "dependencies": {
     "@upstash/qstash": "^2.7.16",
-    "server-only": "^0.0.1",
-    "zod": "^3.23.8"
+    "server-only": "^0.0.1"
   }
 }
