@@ -24,12 +24,16 @@ RUN apt-get update -qq && \
 COPY package.json ./
 COPY packages/helpers/package.json ./packages/helpers/
 COPY apps/api/package.json ./apps/api/
-RUN npm install
+RUN npm install --include=dev
 
 # Copy application code
 COPY . .
 
+# Build application
 RUN npm run build:api
+
+# Remove development dependencies
+RUN npm prune --omit=dev
 
 
 # Final stage for app image

@@ -5,10 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsc && concurrently -k -p -c \"yellow.bold,cyan.bold\" --names=\"TypeScript,Fastify\" \"tsc -w\" \"node --watch dist/server.js\"",
-    "dev2": "tsc -w && nodemon --exec \"fastify start -w -l info -P dist/app.js\"",
-    "dev3": "fastify start -w -l info -P --watch dist/app.js",
     "build": "tsc",
-    "start": "fastify start -l info --address 0.0.0.0 dist/app.js",
+    "start": "node dist/server.js",
     "lint": "eslint ./src",
     "type-check": "tsc --noEmit"
   },

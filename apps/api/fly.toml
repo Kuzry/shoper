@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for api-divine-log-7980 on 2024-11-11T21:49:15+01:00
+# fly.toml app configuration file generated for api-aged-brook-2640 on 2024-11-17T20:56:30+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'api-divine-log-7980'
+app = 'api-aged-brook-2640'
 primary_region = 'waw'
 
 [build]
