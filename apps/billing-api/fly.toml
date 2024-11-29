@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for api-aged-brook-2640 on 2024-11-17T20:56:30+01:00
+# fly.toml app configuration file generated for billing-api on 2024-11-29T13:07:54+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'api-aged-brook-2640'
+app = 'billing-api'
 primary_region = 'waw'
 
 [build]
@@ -17,6 +17,6 @@ primary_region = 'waw'
   processes = ['app']
 
 [[vm]]
-  memory = '1gb'
+  memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1

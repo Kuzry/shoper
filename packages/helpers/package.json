@@ -10,7 +10,7 @@
   "exports": {
     "./upstash/server": {
       "types": "./dist/upstash/server.d.ts",
-      "default": "./dist/upstash/server.js"
+      "default": "./dist/upstash/server.mjs"
     }
   },
   "devDependencies": {
