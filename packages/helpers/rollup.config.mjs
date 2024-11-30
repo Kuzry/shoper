@@ -1,17 +1,19 @@
 import typescript from "rollup-plugin-typescript2";
 import preserveDirectives from "rollup-plugin-preserve-directives";
+import external from "rollup-plugin-peer-deps-external";
 
 export default [
   {
-    input: ["src/upstash/server.ts"],
+    input: ["src/upstash/server.ts", "src/shoper/server.ts"],
     output: [
       {
         dir: "./dist",
         format: "esm",
         preserveModules: true,
-        entryFileNames: "upstash/[name].mjs",
+        entryFileNames: "[name].mjs",
       },
     ],
-    plugins: [typescript(), preserveDirectives()],
+    plugins: [typescript(), preserveDirectives(), external()],
+    external: ["server-only", "@upstash/qstash"],
   },
 ];

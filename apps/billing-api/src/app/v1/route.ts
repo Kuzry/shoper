@@ -1,40 +1,38 @@
 import { createRouteHandlersForAction } from "zsa-openapi";
 import { createServerActionProcedure } from "zsa";
 import { z } from "zod";
-import { upstashQStashReciver } from "@shoper/helpers/upstash/server";
+import { verifyQStashSignature } from "@shoper/helpers/upstash/server";
+import { verifyShoperSignature } from "@shoper/helpers/shoper/server";
 
-const isUpstashProcedure = createServerActionProcedure()
-  .input(z.object({}))
-  .handler(async ({ request }) => {
-    // eslint-disable-next-line no-console
-    console.log("process.env.QSTASH_CURRENT_SIGNING_KEY");
-    // eslint-disable-next-line no-console
-    console.log(process.env.QSTASH_CURRENT_SIGNING_KEY);
-    // eslint-disable-next-line no-console
-    console.log(process.env.QSTASH_NEXT_SIGNING_KEY);
-    // eslint-disable-next-line no-console
-    console.log(request?.headers.get("upstash-signature"));
-    if (
-      await upstashQStashReciver.verify({
-        body: (await request?.clone()?.text()) ?? "",
-        signature: request?.headers.get("upstash-signature") ?? "",
-      })
-    ) {
-      // eslint-disable-next-line no-console
-      console.log("signature ok!");
-    } else {
-      // eslint-disable-next-line no-console
-      console.log("signature NIE ok!");
-    }
+const isUpstashProcedure = createServerActionProcedure().handler(
+  async ({ request }) => {
+    await verifyQStashSignature(
+      (await request?.clone()?.text()) ?? "",
+      request?.headers.get("upstash-signature") ?? ""
+    );
 
     return {};
-  });
+  }
+);
 
-const isShoperProcedure = createServerActionProcedure(isUpstashProcedure)
-  .input(z.object({}))
-  .handler(async () => {
-    return {};
-  });
+const isShoperProcedure = createServerActionProcedure(
+  isUpstashProcedure
+).handler(async ({ request }) => {
+  const body = await request?.clone()?.text();
+  const urlSearchParamsBody = new URLSearchParams(body);
+  const newBodyArray: string[] = [];
+
+  urlSearchParamsBody.forEach(
+    (value, key) => key !== "hash" && newBodyArray.push(`${key}=${value}`)
+  );
+
+  verifyShoperSignature(
+    newBodyArray.join("&"),
+    urlSearchParamsBody.get("hash") ?? ""
+  );
+
+  return {};
+});
 
 export const { POST } = createRouteHandlersForAction(
   isShoperProcedure

@@ -32,6 +32,9 @@
 **next-env.d.ts
 
 # ide
-**.idea/
+**.idea
+
+# git
+**.git
 
 **tsconfig.tsbuildinfo
