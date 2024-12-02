@@ -1,0 +1,29 @@
+{
+  "name": "@shoper/db",
+  "private": true,
+  "scripts": {
+    "build": "rollup -c",
+    "dev": "rollup -c -w",
+    "lint": "eslint ./src",
+    "type-check": "tsc --noEmit",
+    "generate": "drizzle-kit generate"
+  },
+  "exports": {
+    "./db": {
+      "types": "./dist/db.d.ts",
+      "default": "./dist/db.mjs"
+    },
+    "./schema": {
+      "types": "./dist/schema.d.ts",
+      "default": "./dist/schema.mjs"
+    }
+  },
+  "dependencies": {
+    "drizzle-orm": "^0.36.4",
+    "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "dotenv": "^16.4.5",
+    "drizzle-kit": "^0.28.1"
+  }
+}

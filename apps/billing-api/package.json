@@ -10,6 +10,7 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@shoper/db": "*",
     "@shoper/helpers": "*",
     "next": "15.0.3",
     "openapi-types": "^12.1.3",

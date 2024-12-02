@@ -23,7 +23,9 @@ RUN apt-get update -qq && \
 # Install node modules
 COPY package.json ./
 COPY apps/billing-api/package.json ./apps/billing-api/
+COPY packages/db/package.json ./packages/db/
 COPY packages/helpers/package.json ./packages/helpers/
+COPY packages/types/package.json ./packages/types/
 RUN npm install --include=dev --legacy-peer-deps
 
 # Copy application code
