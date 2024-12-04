@@ -8,13 +8,21 @@
     "type-check": "tsc --noEmit"
   },
   "exports": {
-    "./upstash/server": {
-      "types": "./dist/upstash/server.d.ts",
-      "default": "./dist/upstash/server.mjs"
+    "./upstash": {
+      "types": "./dist/upstash/index.d.ts",
+      "default": "./dist/upstash/index.js"
     },
-    "./shoper/server": {
-      "types": "./dist/shoper/server.d.ts",
-      "default": "./dist/shoper/server.mjs"
+    "./shoper": {
+      "types": "./dist/shoper/index.d.ts",
+      "default": "./dist/shoper/index.js"
+    },
+    "./shoper/schemas": {
+      "types": "./dist/shoper/schemas.d.ts",
+      "default": "./dist/shoper/schemas.js"
+    },
+    "./shoper/types": {
+      "types": "./dist/shoper/types.d.ts",
+      "default": "./dist/shoper/types.js"
     }
   },
   "dependencies": {

@@ -2,18 +2,21 @@ import { createRouteHandlersForAction } from "zsa-openapi";
 import { createServerActionProcedure } from "zsa";
 import { db } from "@shoper/db/db";
 import { accessTokens, shops } from "@shoper/db/schema";
+import { eq } from "drizzle-orm";
+import { TAllApplicationMessages } from "@shoper/helpers/shoper/types";
 import {
   applicationInstallMessageSchema,
   applicationUninstallMessageSchema,
-  type TAllApplicationMessages,
-} from "@shoper/types/shoper";
-import { eq } from "drizzle-orm";
+} from "@shoper/helpers/shoper/schemas";
+// import { verifyShoperSignature } from "@shoper/helpers/shoper";
 
 const isUpstashProcedure = createServerActionProcedure().handler(async () => {
   // await verifyQStashSignature(
   //   (await request?.clone()?.text()) ?? "",
   //   request?.headers.get("upstash-signature") ?? ""
   // );
+
+  // verifyShoperSignature();
 
   return {};
 });
@@ -114,7 +117,6 @@ export const { POST } = createRouteHandlersForAction(
           .where(eq(shops.id, input.shop));
       }
 
-      // console.log(await db.select().from(shops));
       return {
         pingu: "pongu123321!",
       };

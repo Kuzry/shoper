@@ -4,13 +4,18 @@ import external from "rollup-plugin-peer-deps-external";
 
 export default [
   {
-    input: ["src/upstash/server.ts", "src/shoper/server.ts"],
+    input: [
+      "src/upstash/index.ts",
+      "src/shoper/index.ts",
+      "src/shoper/schemas.ts",
+      "src/shoper/types.ts",
+    ],
     output: [
       {
         dir: "./dist",
         format: "esm",
         preserveModules: true,
-        entryFileNames: "[name].mjs",
+        entryFileNames: "[name].js",
       },
     ],
     plugins: [typescript(), preserveDirectives(), external()],

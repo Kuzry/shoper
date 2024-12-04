@@ -10,10 +10,6 @@ export const applicationInstallMessageSchema = z.object({
   timestamp: z.string(),
 });
 
-export type TApplicationInstallMessage = z.infer<
-  typeof applicationInstallMessageSchema
->;
-
 export const applicationUninstallMessageSchema = z.object({
   action: z.literal("uninstall"),
   shop: z.string().min(1),
@@ -21,10 +17,6 @@ export const applicationUninstallMessageSchema = z.object({
   application_code: z.string(),
   timestamp: z.string(),
 });
-
-export type TApplicationUninstallMessage = z.infer<
-  typeof applicationUninstallMessageSchema
->;
 
 export const applicationUpgradeMessageSchema = z.object({
   action: z.literal("upgrade"),
@@ -35,10 +27,6 @@ export const applicationUpgradeMessageSchema = z.object({
   timestamp: z.string(),
 });
 
-export type TApplicationUpgradeMessage = z.infer<
-  typeof applicationUpgradeMessageSchema
->;
-
 export const applicationInstallationPaymentMessageSchema = z.object({
   action: z.literal("billing_install"),
   shop: z.string().min(1),
@@ -46,10 +34,6 @@ export const applicationInstallationPaymentMessageSchema = z.object({
   application_code: z.string(),
   timestamp: z.string(),
 });
-
-export type TApplicationInstallationPaymentMessage = z.infer<
-  typeof applicationInstallationPaymentMessageSchema
->;
 
 export const applicationSubscriptionPaidMessageSchema = z.object({
   action: z.literal("billing_subscription"),
@@ -59,14 +43,3 @@ export const applicationSubscriptionPaidMessageSchema = z.object({
   subscription_end_time: z.string(),
   timestamp: z.string(),
 });
-
-export type TApplicationSubscriptionPaidMessage = z.infer<
-  typeof applicationSubscriptionPaidMessageSchema
->;
-
-export type TAllApplicationMessages =
-  | TApplicationInstallMessage
-  | TApplicationUninstallMessage
-  | TApplicationUpgradeMessage
-  | TApplicationInstallationPaymentMessage
-  | TApplicationSubscriptionPaidMessage;
