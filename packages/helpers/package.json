@@ -10,19 +10,19 @@
   "exports": {
     "./upstash": {
       "types": "./dist/upstash/index.d.ts",
-      "default": "./dist/upstash/index.js"
+      "default": "./dist/upstash/index.mjs"
     },
     "./shoper": {
       "types": "./dist/shoper/index.d.ts",
-      "default": "./dist/shoper/index.js"
+      "default": "./dist/shoper/index.mjs"
     },
     "./shoper/schemas": {
       "types": "./dist/shoper/schemas.d.ts",
-      "default": "./dist/shoper/schemas.js"
+      "default": "./dist/shoper/schemas.mjs"
     },
     "./shoper/types": {
       "types": "./dist/shoper/types.d.ts",
-      "default": "./dist/shoper/types.js"
+      "default": "./dist/shoper/types.mjs"
     }
   },
   "dependencies": {

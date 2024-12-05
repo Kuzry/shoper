@@ -8,7 +8,7 @@ export class ShoperService {
 
   verifySignature(body: string, signature: string) {
     return verifyShoperSignature(
-      this.configService.get<string>("SHOPER_APP_STORE_SECRET"),
+      this.configService.get("SHOPER_APP_STORE_SECRET"),
       body,
       signature
     );

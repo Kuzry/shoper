@@ -8,8 +8,8 @@ export class UpstashService {
 
   verifySignature(body: string, signature: string) {
     return verifyQStashSignature(
-      this.configService.get<string>("UPSTASH_CURRENT_SIGNING_KEY"),
-      this.configService.get<string>("UPSTASH_NEXT_SIGNING_KEY"),
+      this.configService.get("UPSTASH_CURRENT_SIGNING_KEY"),
+      this.configService.get("UPSTASH_NEXT_SIGNING_KEY"),
       body,
       signature
     );

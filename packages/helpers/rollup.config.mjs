@@ -15,7 +15,7 @@ export default [
         dir: "./dist",
         format: "esm",
         preserveModules: true,
-        entryFileNames: "[name].js",
+        entryFileNames: "[name].mjs",
       },
     ],
     plugins: [typescript(), preserveDirectives(), external()],
