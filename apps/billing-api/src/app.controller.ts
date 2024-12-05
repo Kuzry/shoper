@@ -82,6 +82,7 @@ export class AppController {
 
       return {};
     } else if (body.action === "upgrade") {
+      //
     }
 
     throw new Error("Incorrect action");
