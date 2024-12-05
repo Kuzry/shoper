@@ -6,10 +6,10 @@ import { verifyQStashSignature } from "@shoper/helpers/upstash";
 export class UpstashService {
   constructor(private configService: ConfigService) {}
 
-  async verifySignature(body: string, signature: string) {
-    return await verifyQStashSignature(
-      this.configService.get<string>("SHOPER_APP_STORE_SECRET"),
-      this.configService.get<string>("SHOPER_APP_STORE_SECRET"),
+  verifySignature(body: string, signature: string) {
+    return verifyQStashSignature(
+      this.configService.get<string>("UPSTASH_CURRENT_SIGNING_KEY"),
+      this.configService.get<string>("UPSTASH_NEXT_SIGNING_KEY"),
       body,
       signature
     );

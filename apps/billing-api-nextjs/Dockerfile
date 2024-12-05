@@ -1,12 +1,12 @@
 # syntax = docker/dockerfile:1
 
 # Adjust NODE_VERSION as desired
-ARG NODE_VERSION=23.3.0
+ARG NODE_VERSION=22.11.0
 FROM node:${NODE_VERSION}-slim as base
 
-LABEL fly_launch_runtime="NestJS"
+LABEL fly_launch_runtime="Next.js"
 
-# NestJS app lives here
+# Next.js app lives here
 WORKDIR /app
 
 # Set production environment
@@ -25,13 +25,16 @@ COPY package.json ./
 COPY apps/billing-api/package.json ./apps/billing-api/
 COPY packages/db/package.json ./packages/db/
 COPY packages/helpers/package.json ./packages/helpers/
-RUN npm install --include=dev
+RUN npm install --include=dev --legacy-peer-deps
 
 # Copy application code
 COPY . .
 
 # Build application
 RUN npm run build
+
+# Remove development dependencies
+RUN npm prune --omit=dev
 
 
 # Final stage for app image

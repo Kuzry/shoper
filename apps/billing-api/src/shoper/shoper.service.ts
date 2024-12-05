@@ -6,7 +6,7 @@ import { verifyShoperSignature } from "@shoper/helpers/shoper";
 export class ShoperService {
   constructor(private configService: ConfigService) {}
 
-  verifySignature(body: string, signature: string): boolean {
+  verifySignature(body: string, signature: string) {
     return verifyShoperSignature(
       this.configService.get<string>("SHOPER_APP_STORE_SECRET"),
       body,

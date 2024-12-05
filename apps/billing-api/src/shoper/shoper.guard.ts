@@ -5,6 +5,7 @@ import { ShoperService } from "./shoper.service";
 @Injectable()
 export class ShoperGuard implements CanActivate {
   constructor(private readonly shoperService: ShoperService) {}
+
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {

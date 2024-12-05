@@ -11,14 +11,8 @@ export const verifyQStashSignature = async (
     nextSigningKey,
   });
 
-  try {
-    await reciver.verify({
-      body: body,
-      signature: signature,
-    });
-  } catch {
-    return false;
-  }
-
-  return true;
+  return await reciver.verify({
+    body: body,
+    signature: signature,
+  });
 };
