@@ -22,7 +22,7 @@ RUN apt-get update -qq && \
 
 # Install node modules
 COPY package.json ./
-COPY apps/billing-api/package.json ./apps/billing-api/
+COPY apps/nestjs/apps/billing-api/package.json ./apps/nestjs/apps/billing-api/
 COPY packages/db/package.json ./packages/db/
 COPY packages/helpers/package.json ./packages/helpers/
 RUN npm install --include=dev
@@ -32,6 +32,7 @@ COPY . .
 
 # Build application
 RUN npm run build
+RUN npm run build:nestjs:billing-api
 
 
 # Final stage for app image
@@ -42,4 +43,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "npm", "run", "start:billing-api" ]
+CMD [ "npm", "run", "start:nestjs:billing-api" ]

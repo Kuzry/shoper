@@ -4,8 +4,8 @@ import * as schema from "@shoper/db/schema";
 import { type PostgresJsDatabase } from "drizzle-orm/postgres-js/driver";
 import { HttpService } from "@nestjs/axios";
 import { UpstashGuard } from "./upstash/upstash.guard";
-import { ShoperGuard } from "./shoper/shoper.guard";
 import { eq } from "drizzle-orm";
+import { ShoperGuard } from "@/main/shoper/shoper.guard";
 
 @Controller()
 export class AppController {
@@ -82,7 +82,12 @@ export class AppController {
 
       return {};
     } else if (body.action === "upgrade") {
-      //
+      await this.db
+        .update(schema.shops)
+        .set({
+          app_version: body.application_version,
+        })
+        .where(eq(schema.shops.id, body.shop));
     }
 
     throw new Error("Incorrect action");

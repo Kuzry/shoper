@@ -1,11 +1,11 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
-import { ShoperModule } from "./shoper/shoper.module";
 import { ConfigModule } from "@nestjs/config";
 import { UpstashService } from "./upstash/upstash.service";
 import { UpstashModule } from "./upstash/upstash.module";
 import { DbModule } from "./db/db.module";
 import { HttpModule } from "@nestjs/axios";
+import { ShoperModule } from "@/main/shoper/shoper.module";
 
 @Module({
   imports: [
