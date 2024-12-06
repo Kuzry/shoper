@@ -32,7 +32,7 @@ COPY . .
 
 # Build application
 RUN npm run build
-RUN npm run build:nestjs:billing-api
+RUN npm run build:nestjs:webhook-api
 
 
 # Final stage for app image
@@ -43,4 +43,4 @@ COPY --from=build /app /app
 
 # Start the server by default, this can be overwritten at runtime
 EXPOSE 3000
-CMD [ "npm", "run", "start:nestjs:billing-api" ]
+CMD [ "npm", "run", "start:nestjs:webhook-api" ]

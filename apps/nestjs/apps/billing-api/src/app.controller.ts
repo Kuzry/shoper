@@ -3,7 +3,7 @@ import { TAllApplicationMessages } from "@shoper/helpers/shoper/types";
 import * as schema from "@shoper/db/schema";
 import { type PostgresJsDatabase } from "drizzle-orm/postgres-js/driver";
 import { HttpService } from "@nestjs/axios";
-import { UpstashGuard } from "./upstash/upstash.guard";
+import { UpstashGuard } from "@/main/upstash/upstash.guard";
 import { eq } from "drizzle-orm";
 import { ShoperGuard } from "@/main/shoper/shoper.guard";
 
@@ -90,6 +90,6 @@ export class AppController {
         .where(eq(schema.shops.id, body.shop));
     }
 
-    throw new Error("Incorrect action");
+    throw new Error("Incorrect action: " + body.action);
   }
 }

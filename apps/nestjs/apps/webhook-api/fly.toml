@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for shoper-billing-api-cat-3591 on 2024-12-05T09:50:24+01:00
+# fly.toml app configuration file generated for webhook-api-little-meadow-5277 on 2024-12-06T11:59:08+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'shoper-billing-api-cat-3591'
+app = 'webhook-api-little-meadow-5277'
 primary_region = 'waw'
 
 [http_service]
@@ -16,4 +16,4 @@ primary_region = 'waw'
 
 [[vm]]
   size = 'shared-cpu-1x'
-  memory = "512mb"
+  memory = "1024mb"

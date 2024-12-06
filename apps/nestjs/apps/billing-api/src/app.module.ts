@@ -1,9 +1,9 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { ConfigModule } from "@nestjs/config";
-import { UpstashService } from "./upstash/upstash.service";
-import { UpstashModule } from "./upstash/upstash.module";
-import { DbModule } from "./db/db.module";
+import { UpstashService } from "@/main/upstash/upstash.service";
+import { UpstashModule } from "@/main/upstash/upstash.module";
+import { DbModule } from "@/main/db/db.module";
 import { HttpModule } from "@nestjs/axios";
 import { ShoperModule } from "@/main/shoper/shoper.module";
 

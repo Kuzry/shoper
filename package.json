@@ -3,7 +3,9 @@
   "private": true,
   "scripts": {
     "start:nestjs:billing-api": "npm run start:billing-api -w @shoper/nestjs",
+    "start:prod:nestjs:billing-api": "npm run start:billing-api -w @shoper/nestjs",
     "start:nestjs:webhook-api": "npm run start:webhook-api -w @shoper/nestjs",
+    "start:prod:nestjs:webhook-api": "npm run start:webhook-api -w @shoper/nestjs",
     "build": "npm run build:db && npm run build:helpers",
     "build:nestjs:billing-api": "npm run build:billing-api -w @shoper/nestjs",
     "build:nestjs:webhook-api": "npm run build:webhook-api -w @shoper/nestjs",
@@ -13,7 +15,8 @@
     "dev:nestjs:webhook-api": "npm run dev:webhook-api -w @shoper/nestjs",
     "dev:db": "npm run dev -w @shoper/db",
     "dev:helpers": "npm run dev -w @shoper/helpers",
-    "deploy:billing-api": "fly deploy --config apps/nestjs/apps/billing-api/fly.toml --dockerfile apps/nestjs/apps/billing-api/Dockerfile --ignorefile .dockerignore",
+    "deploy:nestjs:billing-api": "fly deploy --config apps/nestjs/apps/billing-api/fly.toml --dockerfile apps/nestjs/apps/billing-api/Dockerfile --ignorefile .dockerignore",
+    "deploy:nestjs:webhook-api": "fly deploy --config apps/nestjs/apps/webhook-api/fly.toml --dockerfile apps/nestjs/apps/webhook-api/Dockerfile --ignorefile .dockerignore",
     "lint": "npm run lint:db && npm run lint:helpers && npm run lint:nestjs",
     "lint:nestjs": "npm run lint -w @shoper/nestjs",
     "lint:db": "npm run lint -w @shoper/db",
@@ -27,7 +30,8 @@
   },
   "workspaces": [
     "apps/*",
-    "apps/nestjs",
+    "apps/nestjs/*",
+    "apps/nextjs/*",
     "packages/*"
   ],
   "devDependencies": {
