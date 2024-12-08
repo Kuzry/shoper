@@ -1,10 +1,12 @@
-# fly.toml app configuration file generated for webhook-api-little-meadow-5277 on 2024-12-06T11:59:08+01:00
+# fly.toml app configuration file generated for shoper-control-panel-delta-future-3621 on 2024-12-08T11:20:21+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = 'shoper-webhook-api-little-tank-5277'
+app = 'shoper-control-panel-delta-future-3621'
 primary_region = 'waw'
+
+[build]
 
 [http_service]
   internal_port = 3000
@@ -15,5 +17,6 @@ primary_region = 'waw'
   processes = ['app']
 
 [[vm]]
-  size = 'shared-cpu-1x'
-  memory = "1024mb"
+  memory = '512mb'
+  cpu_kind = 'shared'
+  cpus = 1

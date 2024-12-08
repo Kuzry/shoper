@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Fira_Sans } from "next/font/google";
 import "./globals.css";
 import { ReactNode } from "react";
+import Script from "next/script";
 
 const firaSans = Fira_Sans({
   subsets: ["latin-ext"],
@@ -20,6 +21,24 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NODE_ENV !== "development" && (
+          <>
+            <Script
+              src="https://dcsaascdn.net/js/dc-sdk-1.0.5.min.js"
+              strategy="beforeInteractive"
+            />
+            <Script id="shoper-shop-app">{`
+          var ShopAppInstance = new ShopApp(function(app) {
+            app.init({show: true}, function(params, app) {
+              }, function(errmsg, app) {
+                  alert(errmsg);
+              });
+          }, true);
+        `}</Script>
+          </>
+        )}
+      </head>
       <body className={`${firaSans.className} antialiased`}>{children}</body>
     </html>
   );

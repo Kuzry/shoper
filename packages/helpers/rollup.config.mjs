@@ -19,6 +19,6 @@ export default [
       },
     ],
     plugins: [typescript(), preserveDirectives(), external()],
-    external: ["server-only", "@upstash/qstash"],
+    external: ["server-only", "@upstash/qstash", "crypto-js"],
   },
 ];
