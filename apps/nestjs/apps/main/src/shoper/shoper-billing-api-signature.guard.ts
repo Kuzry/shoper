@@ -3,25 +3,24 @@ import { Observable } from "rxjs";
 import { ShoperService } from "./shoper.service";
 
 @Injectable()
-export class ShoperGuard implements CanActivate {
+export class ShoperBillingApiSignatureGuard implements CanActivate {
   constructor(private readonly shoperService: ShoperService) {}
 
   canActivate(
     context: ExecutionContext
   ): boolean | Promise<boolean> | Observable<boolean> {
-    const request = context.switchToHttp().getRequest(),
-      body = request.body,
-      signature = body["hash"];
+    const request = context.switchToHttp().getRequest();
 
     const newBodyArray: string[] = [];
 
-    Object.keys(body).forEach(
-      (key) => key !== "hash" && newBodyArray.push(`${key}=${body[key]}`)
+    Object.keys(request.body).forEach(
+      (key) =>
+        key !== "hash" && newBodyArray.push(`${key}=${request.body[key]}`)
     );
 
     return this.shoperService.verifySignature(
       newBodyArray.join("&"),
-      signature
+      request.body["hash"]
     );
   }
 }

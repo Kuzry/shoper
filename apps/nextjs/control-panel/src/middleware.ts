@@ -1,30 +1,30 @@
 import { type NextRequest, NextResponse } from "next/server";
-import { verifyShoperSignature } from "@shoper/helpers/shoper";
 
-export function middleware(request: NextRequest) {
+export async function middleware(request: NextRequest) {
   const response = NextResponse.next();
 
-  const urlSearchParams = Object.fromEntries(request.nextUrl.searchParams);
+  const responseFetch = await fetch(
+    process.env.BILLING_API_VERIFY_SHOP_ACCESS_URL ?? "",
+    {
+      method: "POST",
+      body: JSON.stringify(
+        Object.fromEntries(new URLSearchParams(request.nextUrl.searchParams))
+      ),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    }
+  );
 
-  const params = {
-    "admin-id": urlSearchParams["admin-id"],
-    "admin-name": urlSearchParams["admin-name"],
-    place: urlSearchParams["place"],
-    shop: urlSearchParams["shop"],
-    timestamp: urlSearchParams["timestamp"],
-  };
+  const responseBody = await responseFetch.json();
 
-  if (process.env.NODE_ENV !== "development") {
-    verifyShoperSignature(
-      process.env.SHOPER_APP_STORE_SECRET ?? "",
-      new URLSearchParams(params).toString(),
-      request.nextUrl.searchParams.get("admin-hash") ?? ""
-    );
+  if (!responseBody.success) {
+    return Response.redirect(new URL("/error", request.url));
   }
 
   return response;
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|favicon.ico).*)"],
+  matcher: ["/((?!api|_next/static|favicon.ico|error).*)"],
 };

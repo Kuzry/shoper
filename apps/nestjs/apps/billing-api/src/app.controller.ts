@@ -5,7 +5,8 @@ import { type PostgresJsDatabase } from "drizzle-orm/postgres-js/driver";
 import { HttpService } from "@nestjs/axios";
 import { UpstashGuard } from "@/main/upstash/upstash.guard";
 import { eq } from "drizzle-orm";
-import { ShoperGuard } from "@/main/shoper/shoper.guard";
+import { ShoperBillingApiSignatureGuard } from "@/main/shoper/shoper-billing-api-signature.guard";
+import { ShoperControlPanelSignatureGuard } from "@/main/shoper/shoper-control-panel-signature.guard";
 
 @Controller()
 export class AppController {
@@ -15,8 +16,68 @@ export class AppController {
     private readonly httpService: HttpService
   ) {}
 
+  @Post("/verify-shop-access")
+  @UseGuards(ShoperControlPanelSignatureGuard)
+  async verifyShopAccess(@Body() body) {
+    const accessToken = await this.db
+      .select()
+      .from(schema.accessTokens)
+      .where(eq(schema.accessTokens.shop_id, body.shop));
+
+    const timeLeft = new Date(accessToken[0].expires_at).getTime() - Date.now();
+    if (timeLeft < 86400000) {
+      const shop = await this.db
+        .select()
+        .from(schema.shops)
+        .where(eq(schema.shops.id, accessToken[0].shop_id));
+
+      const shoperTokenResponse = await this.httpService.axiosRef.post<{
+        access_token: string;
+        refresh_token: string;
+        expires_in: number;
+      }>(
+        `${shop[0].url}/webapi/rest/oauth/token`,
+        {
+          refresh_token: accessToken[0].refresh_token,
+          grant_type: "refresh_token",
+        },
+        {
+          headers: {
+            Authorization: `Basic ${Buffer.from(`${process.env.SHOPER_APP_ID}:${process.env.SHOPER_APP_SECRET}`).toString("base64")}`,
+            "Accept-Language": "pl_PL;q=0.8",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+        }
+      );
+
+      const expirationDate = new Date();
+      expirationDate.setSeconds(
+        expirationDate.getSeconds() + shoperTokenResponse.data.expires_in
+      );
+
+      const accessTokenRow = {
+        shop_id: body.shop,
+        access_token: shoperTokenResponse.data.access_token,
+        refresh_token: shoperTokenResponse.data.refresh_token,
+        expires_at: expirationDate,
+      };
+
+      await this.db
+        .insert(schema.accessTokens)
+        .values(accessTokenRow)
+        .onConflictDoUpdate({
+          target: schema.accessTokens.shop_id,
+          set: accessTokenRow,
+        });
+    }
+
+    return {
+      success: true,
+    };
+  }
+
   @Post()
-  @UseGuards(UpstashGuard, ShoperGuard)
+  @UseGuards(UpstashGuard, ShoperBillingApiSignatureGuard)
   async getHello(@Body() body: TAllApplicationMessages) {
     if (body.action === "install") {
       const shopRow = {
