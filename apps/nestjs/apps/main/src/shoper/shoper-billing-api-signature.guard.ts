@@ -1,6 +1,6 @@
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { Observable } from "rxjs";
-import { ShoperService } from "./shoper.service";
+import { ShoperService } from "@/main/shoper/shoper.service";
 
 @Injectable()
 export class ShoperBillingApiSignatureGuard implements CanActivate {

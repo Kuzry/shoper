@@ -16,6 +16,10 @@
     "./schema": {
       "types": "./dist/schema.d.ts",
       "default": "./dist/schema.mjs"
+    },
+    "./model/shop": {
+      "types": "./dist/model/shop.d.ts",
+      "default": "./dist/model/shop.mjs"
     }
   },
   "dependencies": {

@@ -1,24 +1,29 @@
 import { Body, Controller, Inject, Post, UseGuards } from "@nestjs/common";
-import { TAllApplicationMessages } from "@shoper/helpers/shoper/types";
+import {
+  TAllApplicationMessages,
+  TControlPanelIFrameData,
+} from "@shoper/helpers/shoper/types";
 import * as schema from "@shoper/db/schema";
-import { type PostgresJsDatabase } from "drizzle-orm/postgres-js/driver";
+import { type PostgresJsDatabase } from "drizzle-orm/postgres-js";
 import { HttpService } from "@nestjs/axios";
 import { UpstashGuard } from "@/main/upstash/upstash.guard";
 import { eq } from "drizzle-orm";
 import { ShoperBillingApiSignatureGuard } from "@/main/shoper/shoper-billing-api-signature.guard";
 import { ShoperControlPanelSignatureGuard } from "@/main/shoper/shoper-control-panel-signature.guard";
+import { ShopService } from "@/main/db/shop.service";
 
 @Controller()
 export class AppController {
   constructor(
     @Inject("db")
     private readonly db: PostgresJsDatabase<typeof schema>,
+    private readonly shop: ShopService,
     private readonly httpService: HttpService
   ) {}
 
   @Post("/verify-shop-access")
   @UseGuards(ShoperControlPanelSignatureGuard)
-  async verifyShopAccess(@Body() body) {
+  async verifyShopAccess(@Body() body: TControlPanelIFrameData) {
     const accessToken = await this.db
       .select()
       .from(schema.accessTokens)

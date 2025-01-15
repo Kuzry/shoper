@@ -33,3 +33,19 @@ export type TAllApplicationMessages =
   | TApplicationUpgradeMessage
   | TApplicationInstallationPaymentMessage
   | TApplicationSubscriptionPaidMessage;
+
+export interface TControlPanelIFrameData {
+  application: string;
+  "application-version": string;
+  id: string;
+  translations: string;
+  locale: string;
+  version: string;
+  place: string;
+  shop: string;
+  hash: string;
+  "admin-hash": string;
+  timestamp: string;
+  "admin-id": string;
+  "admin-name": string;
+}
